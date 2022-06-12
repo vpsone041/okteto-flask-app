@@ -1,4 +1,4 @@
-FROM python:3.7-alpine as python
+FROM ubuntu:latest as python
 
 ENV VIRTUAL_ENV=/opt/venv
 RUN python3 -m venv $VIRTUAL_ENV
