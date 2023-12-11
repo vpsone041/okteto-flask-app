@@ -1,18 +1,21 @@
-# Drone CI File!
-
 kind: pipeline
-type: kubernetes
-name: default
-
-node_selector:
-  doks.digitalocean.com/node-pool: josa-cloud-np
-steps:
-  - name: build
-    image: golang
-    commands:
-      - lscpu
-
-    settings:
-      repo: josaorg/nuha-web
-      build_args: [USER=1001]
-      build_args_from_env:
+type: docker
+name: sv-socialtool
+trigger:
+  branch:
+  - master
+pipeline:
+  deploy:
+    image: appleboy/drone-ssh
+    host:
+      - manager01.der-taenzer.net
+    username: dockeradmin
+    password:
+      from_secret: ssh_pass
+    port: 22
+    command_timeout: 5m
+    script:
+      - cd /home/dockeradmin/docker/deploy/svmotor-socialtool
+      - gh repo pull taenzer/svmotor-socialtool
+      - gh repo sync
+      - docker compose up -d
