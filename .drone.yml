@@ -1,0 +1,18 @@
+# Drone CI File!
+
+kind: pipeline
+type: kubernetes
+name: default
+
+node_selector:
+  doks.digitalocean.com/node-pool: josa-cloud-np
+steps:
+  - name: build
+    image: golang
+    commands:
+      - lscpu
+
+    settings:
+      repo: josaorg/nuha-web
+      build_args: [USER=1001]
+      build_args_from_env:
